@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:argus_wallet/bridge/frb_generated.dart';
 import 'package:argus_wallet/services/network_controller.dart';
+import 'package:argus_wallet/services/storage_rent.dart';
 import 'package:argus_wallet/services/wallet_service.dart';
 import 'package:argus_wallet/theme/argus_theme.dart';
 import 'package:argus_wallet/ui/utxo_management_screen.dart';
@@ -324,7 +325,9 @@ void main() {
       ('Miner fee', '0.0011 ERG'),
       ('Total value in', '42.001 ERG'),
       ('Value after fees', '41.9999 ERG'),
-      ('New box rent', '0.13875 ERG, due ~Oct 2030'),
+      // The month moves with today's date: the new box is due one storage
+      // period from now.
+      ('New box rent', '0.13875 ERG, due ${rentWhen(1051200)}'),
     ]) {
       expect(find.text(label), findsOneWidget, reason: label);
       expect(find.text(value), findsWidgets, reason: label);
